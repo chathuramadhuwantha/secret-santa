@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Secret Santa · Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/festive.css">
+</head>
+<body data-role="admin">
+<div class="page">
+  <div class="lights" aria-hidden="true"></div>
+  <div class="intro"><h1>Santa's Workshop</h1><p>Organiser area. Authorised admins only.</p></div>
+  <form class="card narrow" id="loginForm">
+    <span id="gift"></span>
+    <h1>Admin login</h1>
+    <p class="lead">Manage participants and run the game.</p>
+    <label for="username">Admin username</label>
+    <input id="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password" required>
+    <button class="full green" type="submit" id="go">🔐 Log in as admin</button>
+    <p class="msg" id="msg" role="status"></p>
+    <p class="switch"><a href="/login">← Participant login</a></p>
+  </form>
+</div>
+<script src="/common.js"></script>
+<script src="/login.js"></script>
+</body>
+</html>

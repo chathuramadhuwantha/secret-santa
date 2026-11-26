@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Secret Santa · Log in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/festive.css">
+</head>
+<body data-role="user">
+<div class="page">
+  <div class="lights" aria-hidden="true"></div>
+  <div class="intro"><h1>Secret Santa</h1><p>Log in, pick a present, and find out who you're buying a gift for.</p></div>
+  <form class="card narrow" id="loginForm" autocomplete="on">
+    <span id="gift"></span>
+    <h1>Welcome, elf!</h1>
+    <p class="lead">Use the username and password your organiser gave you.</p>
+    <label for="username">Username</label>
+    <input id="username" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+    <button class="full" type="submit" id="go">🎁 Log in</button>
+    <p class="msg" id="msg" role="status"></p>
+    <p class="switch">Organiser? <a href="/admin">Admin login</a></p>
+  </form>
+</div>
+<script src="/common.js"></script>
+<script src="/login.js"></script>
+</body>
+</html>

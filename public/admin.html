@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Secret Santa · Admin dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/festive.css">
+</head>
+<body>
+<div class="page">
+  <div class="lights" aria-hidden="true"></div>
+  <header class="bar">
+    <span class="brand"><span class="dot">🎄</span>Santa's Workshop</span>
+    <div class="who"><span id="hello"></span><button type="button" class="ghost small" id="logout">Log out</button></div>
+  </header>
+
+  <main class="card wide">
+    <h1 id="headline">Dashboard</h1>
+    <p class="lead" id="sublead"></p>
+    <div class="stats">
+      <div class="stat"><b id="sPeople">0</b><span>Participants</span></div>
+      <div class="stat"><b id="sDone">0</b><span>Have picked</span></div>
+      <div class="stat"><b id="sLeft">0</b><span>Still to pick</span></div>
+      <div class="stat"><span>Game status</span><div><span class="pill setup" id="sStatus">Setup</span></div><div class="meter"><i id="meter"></i></div></div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-tab="people">👥 Participants</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="picks">🎁 Selections</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="game">🎮 Game</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="account">🔐 Account</button>
+    </div>
+
+    <!-- participants -->
+    <section data-panel="people">
+      <form class="grid-form" id="addForm">
+        <div><label for="aName">Full name</label><input id="aName" required maxlength="60" placeholder="Nimal Perera"></div>
+        <div><label for="aUser">Username</label><input id="aUser" required autocapitalize="none" spellcheck="false" placeholder="nimal"></div>
+        <div><label for="aPass">Password</label><input id="aPass" required minlength="6" autocomplete="new-password" placeholder="min. 6 characters"></div>
+        <div class="actions"><button type="button" class="ghost" id="genPass" title="Generate password">🎲</button><button type="submit" class="green">Add</button></div>
+      </form>
+      <p class="msg" id="pMsg" role="status"></p>
+      <div class="panel" id="lastCreds" hidden>
+        <b>Login details to send:</b> <span id="credText"></span>
+        <div class="actions"><button type="button" class="ghost small" id="copyCreds">Copy</button></div>
+        <p class="muted">Passwords are stored hashed, so this is the only time you'll see this one. Copy it now.</p>
+      </div>
+      <p class="muted" id="lockNote" hidden>🔒 The game is running: you can change usernames and passwords, but adding, deleting or renaming people requires a reset.</p>
+      <div class="tablewrap"><table class="stack"><thead><tr><th>Name</th><th>Username</th><th>Status</th><th>Emoji</th><th></th></tr></thead><tbody id="people"></tbody></table></div>
+    </section>
+
+    <!-- selections -->
+    <section data-panel="picks" hidden>
+      <div class="actions"><button type="button" class="ghost" id="toggleNames">👁 Show assigned names</button><button type="button" class="ghost" id="refresh">↻ Refresh</button></div>
+      <p class="muted">Assigned names are blurred so you don't spoil the surprise while sharing your screen.</p>
+      <div class="tablewrap hidden-names" id="pickWrap"><table class="stack"><thead><tr><th>Participant</th><th>Emoji</th><th>Secret Santa for</th><th>Picked at</th></tr></thead><tbody id="picks"></tbody></table></div>
+      <h3 class="muted" id="availTitle">Still available</h3>
+      <div class="chips" id="avail"></div>
+    </section>
+
+    <!-- game -->
+    <section data-panel="game" hidden>
+      <div class="panel">
+        <h2>Start the game</h2>
+        <p class="lead">Creates one unique emoji per participant and secretly links each emoji to a participant's name at random. Nobody ever receives their own name, and everyone gets a different person.</p>
+        <button type="button" class="green" id="startBtn">🎄 Start Secret Santa</button>
+        <p class="msg" id="gMsg" role="status"></p>
+      </div>
+      <div class="panel danger">
+        <h2>Reset the game</h2>
+        <p class="lead">Deletes all emojis, selections and assignments. Participants and their logins are kept. This cannot be undone.</p>
+        <div class="grid-form">
+          <div><label for="resetConfirm">Type RESET to confirm</label><input id="resetConfirm" autocomplete="off"></div>
+          <div></div><div></div>
+          <div><button type="button" id="resetBtn">Reset game</button></div>
+        </div>
+        <p class="msg" id="rMsg" role="status"></p>
+      </div>
+    </section>
+
+    <!-- account -->
+    <section data-panel="account" hidden>
+      <form class="panel" id="pwForm">
+        <h2>Change admin password</h2>
+        <label for="curPw">Current password</label><input id="curPw" type="password" autocomplete="current-password" required>
+        <label for="newPw">New password (min. 10 characters)</label><input id="newPw" type="password" autocomplete="new-password" minlength="10" required>
+        <button type="submit" class="green full">Update password</button>
+        <p class="msg" id="aMsg" role="status"></p>
+      </form>
+    </section>
+  </main>
+</div>
+
+<div class="ov" id="editOv" role="dialog" aria-modal="true" aria-labelledby="eTitle">
+  <form class="dialog" id="editForm">
+    <h2 id="eTitle">Edit participant</h2>
+    <label for="eName">Full name</label><input id="eName" required maxlength="60">
+    <label for="eUser">Username</label><input id="eUser" required autocapitalize="none" spellcheck="false">
+    <label for="ePass">New password (leave empty to keep)</label><input id="ePass" autocomplete="new-password" minlength="6">
+    <div class="btns"><button type="submit" class="green">Save</button><button type="button" class="ghost" id="eCancel">Cancel</button></div>
+    <p class="msg" id="eMsg" role="status"></p>
+  </form>
+</div>
+
+<div class="ov" id="delOv" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+  <div class="dialog">
+    <h2 id="dTitle">Delete participant?</h2>
+    <p class="lead" id="dText"></p>
+    <div class="btns"><button type="button" id="dYes">Delete</button><button type="button" class="ghost" id="dNo">Cancel</button></div>
+    <p class="msg" id="dMsg" role="status"></p>
+  </div>
+</div>
+
+<script src="/common.js"></script>
+<script src="/admin.js"></script>
+</body>
+</html>

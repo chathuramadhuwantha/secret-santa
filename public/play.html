@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Secret Santa · Pick your present</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/festive.css">
+</head>
+<body>
+<div class="page">
+  <div class="lights" aria-hidden="true"></div>
+  <header class="bar">
+    <span class="brand"><span class="dot">🎅</span>Secret Santa</span>
+    <div class="who"><span id="hello"></span><button type="button" class="ghost small" id="logout">Log out</button></div>
+  </header>
+
+  <section id="choose" hidden>
+    <div class="intro">
+      <h1>Pick your present</h1>
+      <p>Every present hides a different person's name. You can choose only one, and your choice is final.</p>
+      <div class="progress" id="progress"></div>
+    </div>
+    <div class="wall" id="wall" role="list"></div>
+  </section>
+
+  <section id="waiting" class="card wait" hidden>
+    <div class="big">⏳</div>
+    <h2>The elves are still wrapping</h2>
+    <p class="lead">The organiser hasn't started the game yet. This page refreshes automatically.</p>
+  </section>
+
+  <section id="result" class="card result" hidden>
+    <div class="e" id="rEmoji"></div>
+    <p class="muted">You are the Secret Santa for</p>
+    <div class="name" id="rName"></div>
+    <p class="tip">Keep it secret! 🤫 Only you can see this. It stays the same every time you log in.</p>
+  </section>
+
+  <p class="msg" id="msg" role="status"></p>
+</div>
+
+<div class="ov" id="confirm" role="dialog" aria-modal="true" aria-labelledby="cTitle">
+  <div class="dialog">
+    <div class="pick" id="cEmoji"></div>
+    <h2 id="cTitle">Open this present?</h2>
+    <p class="lead">You can only pick once. The name inside will be yours to keep.</p>
+    <div class="btns"><button type="button" id="cYes">🎁 Yes, open it!</button><button type="button" class="ghost" id="cNo">Choose again</button></div>
+    <p class="msg" id="cMsg" role="status"></p>
+  </div>
+</div>
+
+<div class="ov" id="reveal" role="dialog" aria-modal="true" aria-label="Your Secret Santa name">
+  <div class="stage">
+    <div class="gift" id="gift"><div class="box"></div><div class="lid"><div class="bow"></div></div></div>
+    <div class="burst"></div>
+    <div class="confetti" id="confetti"></div>
+    <div class="namecard"><div class="e" id="nEmoji"></div><div class="label">You are the Secret Santa for</div><div class="name" id="nName"></div></div>
+    <div class="done"><button type="button" class="green" id="doneBtn">Got it 🎄</button></div>
+  </div>
+</div>
+
+<script src="/common.js"></script>
+<script src="/play.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "secret-santa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Secret Santa web app with admin dashboard, emoji picking and secure logins. No third-party dependencies.",
+  "main": "server.js",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "test": "node --disable-warning=ExperimentalWarning test/api.test.js"
+  }
+}
